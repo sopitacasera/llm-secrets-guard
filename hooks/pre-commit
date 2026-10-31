@@ -1,0 +1,49 @@
+#!/bin/sh
+# Pre-commit hook: block commits that contain LLM API key leaks.
+#
+# Install:
+#   cp hooks/pre-commit .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+
+echo "llm-secrets-guard: scanning staged files..."
+
+# Check if tool is installed
+if ! command -v llm-secrets-guard > /dev/null 2>&1; then
+    echo "Warning: llm-secrets-guard not installed. Skipping scan."
+    echo "Install with: pip install ."
+    exit 0
+fi
+
+# Get list of staged files (added, modified, renamed)
+STAGED=$(git diff --cached --name-only --diff-filter=ACM)
+
+if [ -z "$STAGED" ]; then
+    exit 0
+fi
+
+# Write staged files to a temp dir for scanning
+TMPDIR=$(mktemp -d)
+trap "rm -rf $TMPDIR" EXIT
+
+for FILE in $STAGED; do
+    if [ -f "$FILE" ]; then
+        DEST="$TMPDIR/$FILE"
+        mkdir -p "$(dirname $DEST)"
+        git show ":$FILE" > "$DEST" 2>/dev/null || cp "$FILE" "$DEST"
+    fi
+done
+
+# Run scan — exit 1 blocks the commit
+llm-secrets-guard "$TMPDIR" --fail-on-findings --no-banner
+
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+    echo ""
+    echo "COMMIT BLOCKED: LLM API key detected in staged files."
+    echo "Rotate the exposed key immediately, then remove it from code."
+    echo "Store credentials in .env (gitignored) or Azure Key Vault."
+    exit 1
+fi
+
+exit 0

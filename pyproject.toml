@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "llm-secrets-guard"
+version = "1.0.0"
+description = "Detect leaked LLM API keys in your codebase before they reach production"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Johanna Huaraca", email = "johanna28h2@gmail.com" }]
+keywords = ["security", "devsecops", "llm", "api-keys", "secrets", "azure", "openai"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Security",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.urls]
+Homepage = "https://sopitacasera.github.io"
+Repository = "https://github.com/sopitacasera/llm-secrets-guard"
+Issues = "https://github.com/sopitacasera/llm-secrets-guard/issues"
+
+[project.scripts]
+llm-secrets-guard = "llm_secrets_guard.cli:run"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["llm_secrets_guard*"]
