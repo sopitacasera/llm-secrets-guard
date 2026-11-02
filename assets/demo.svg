@@ -1,0 +1,100 @@
+<svg width="760" height="370" viewBox="0 0 760 370" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .t { font-family: 'Fira Code','Cascadia Code',Consolas,'Courier New',monospace; font-size: 13px; }
+      .ln { opacity: 0; animation: fa .18s ease forwards; }
+      @keyframes fa { to { opacity: 1; } }
+      @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+      .l01{animation-delay:.5s}  .l02{animation-delay:1.0s}
+      .l03{animation-delay:1.6s} .l04{animation-delay:2.1s}
+      .l05{animation-delay:2.7s} .l06{animation-delay:3.2s}
+      .l07{animation-delay:3.8s} .l08{animation-delay:4.3s}
+      .l09{animation-delay:4.8s} .l10{animation-delay:5.3s}
+      .l11{animation-delay:5.8s} .l12{animation-delay:6.3s}
+      .cur{opacity:0; animation: blink 1s step-start infinite; animation-delay:6.6s}
+    </style>
+    <linearGradient id="gbg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1117"/>
+      <stop offset="100%" stop-color="#080c14"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Window -->
+  <rect width="760" height="370" rx="12" fill="url(#gbg2)"/>
+  <rect width="760" height="370" rx="12" fill="none" stroke="rgba(63,185,80,0.14)" stroke-width="1.5"/>
+
+  <!-- Title bar -->
+  <rect width="760" height="40" rx="12" fill="#161b22"/>
+  <rect y="28" width="760" height="12" fill="#161b22"/>
+
+  <!-- Dots -->
+  <circle cx="24" cy="20" r="6" fill="#ff5f57" opacity=".9"/>
+  <circle cx="46" cy="20" r="6" fill="#ffbd2e" opacity=".9"/>
+  <circle cx="68" cy="20" r="6" fill="#28c840" opacity=".9"/>
+
+  <!-- Title -->
+  <text x="380" y="25" text-anchor="middle" font-family="'Inter',system-ui,sans-serif" font-size="11.5" fill="#6b7990" letter-spacing="1.2">llm-secrets-guard  ·  secret scanner</text>
+
+  <!-- L01: command -->
+  <text class="ln l01 t" y="68">
+    <tspan x="20" fill="#6b7990">❯ </tspan><tspan fill="#3fb950">llm-guard</tspan><tspan fill="#e6edf3"> scan --path .</tspan>
+  </text>
+
+  <!-- L02: scanning -->
+  <text class="ln l02 t" y="90">
+    <tspan x="20" fill="#6b7990">🔍 Scanning </tspan><tspan fill="#e6edf3">47 files</tspan><tspan fill="#6b7990">...</tspan>
+  </text>
+
+  <!-- L03: leak 1 header -->
+  <text class="ln l03 t" y="116">
+    <tspan x="20" fill="#f85149">✗ LEAK  </tspan><tspan fill="#e6edf3">src/config.py</tspan><tspan fill="#6b7990">  line </tspan><tspan fill="#f0883e">12</tspan>
+  </text>
+
+  <!-- L04: key value -->
+  <text class="ln l04 t" y="134">
+    <tspan x="36" fill="#8b949e">  </tspan><tspan fill="#d29922">sk-proj-Ab3xKZ9p...</tspan><tspan fill="#6b7990">  </tspan><tspan fill="#a8b3cf">[OpenAI API Key]</tspan>
+  </text>
+
+  <!-- L05: leak 2 header -->
+  <text class="ln l05 t" y="160">
+    <tspan x="20" fill="#f85149">✗ LEAK  </tspan><tspan fill="#e6edf3">.env.backup</tspan><tspan fill="#6b7990">  line </tspan><tspan fill="#f0883e">3</tspan>
+  </text>
+
+  <!-- L06: key value -->
+  <text class="ln l06 t" y="178">
+    <tspan x="36" fill="#8b949e">  </tspan><tspan fill="#d29922">sk-ant-api03-ABcXy...</tspan><tspan fill="#6b7990">  </tspan><tspan fill="#a8b3cf">[Anthropic API Key]</tspan>
+  </text>
+
+  <!-- L07: separator -->
+  <text class="ln l07 t" y="200" fill="#21262d"><tspan x="20">──────────────────────────────────────────────────────────────────────</tspan></text>
+
+  <!-- L08: clean count -->
+  <text class="ln l08 t" y="220">
+    <tspan x="20" fill="#3fb950">✓ </tspan><tspan fill="#a8b3cf">Clean: </tspan><tspan fill="#e6edf3">45 files</tspan>
+  </text>
+
+  <!-- L09: blocked -->
+  <g class="ln l09">
+    <rect x="20" y="228" width="76" height="20" rx="4" fill="rgba(248,81,73,0.13)"/>
+    <text class="t" y="242">
+      <tspan x="58" text-anchor="middle" fill="#f85149" font-weight="bold">BLOCKED</tspan>
+      <tspan x="104" fill="#a8b3cf"> 2 secrets found — push aborted</tspan>
+    </text>
+  </g>
+
+  <!-- L10: pre-commit tip -->
+  <text class="ln l10 t" y="268">
+    <tspan x="20" fill="#6b7990">💡 Install hook: </tspan><tspan fill="#3fb950">llm-guard install-hook</tspan>
+  </text>
+
+  <!-- L11: hook description -->
+  <text class="ln l11 t" y="286">
+    <tspan x="20" fill="#6b7990">   Protects every future commit automatically</tspan>
+  </text>
+
+  <!-- L12: next prompt -->
+  <text class="ln l12 t" y="312" fill="#6b7990"><tspan x="20">❯ </tspan></text>
+
+  <!-- Blinking cursor -->
+  <rect class="cur" x="36" y="299" width="8" height="14" rx="1" fill="#3fb950"/>
+</svg>
